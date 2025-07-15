@@ -3,104 +3,130 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MCQ Test App with Profile Photo</title>
+  <title>MCQ Test App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <div class="container">
-
-    <!-- Register Page -->
-    <div id="register-page" class="page" style="display:none;">
-      <h1>Register</h1>
-      <input type="text" id="reg-username" placeholder="Choose username" />
-      <input type="text" id="reg-mobile" placeholder="Enter mobile number (10 digits)" />
-      <input type="password" id="reg-password" placeholder="Choose password" />
-      <input type="password" id="reg-password-confirm" placeholder="Confirm password" />
-      <button onclick="register()">Register</button>
-      <p id="register-error" class="error-msg"></p>
-      <p>Already have an account? <a href="#" onclick="showLogin()">Login here</a></p>
+  <!-- Top Navigation Bar -->
+  <nav id="top-nav">
+    <div class="nav-left">
+      <h1>Exam Goal MCQ</h1>
     </div>
-
-    <!-- Login Page -->
-    <div id="login-page" class="page">
-      <h1>Login</h1>
-      <input type="text" id="login-username" placeholder="Enter username" />
-      <input type="password" id="login-password" placeholder="Enter password" />
-      <button onclick="login()">Login</button>
-      <p id="login-error" class="error-msg"></p>
-      <p>Don't have an account? <a href="#" onclick="showRegister()">Register here</a></p>
-      <p><a href="#" onclick="showForgot()">Forgot Password?</a></p>
+    <div class="nav-center">
+      <input type="text" id="subject-search" placeholder="Search subjects..." oninput="filterSubjects()" />
     </div>
-
-    <!-- Forgot Password Page -->
-    <div id="forgot-page" class="page" style="display:none;">
-      <h1>Forgot Password</h1>
-      <input type="text" id="forgot-username" placeholder="Enter your username" />
-      <input type="text" id="forgot-mobile" placeholder="Enter your registered mobile number" />
-      <button onclick="recoverPassword()">Recover Password</button>
-      <p id="forgot-error" class="error-msg"></p>
-      <p id="forgot-result" style="color:green; font-weight:600;"></p>
-      <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+    <div class="nav-right">
+      <div id="home-profile-photo" title="User Profile"></div>
+      <button onclick="logout()" class="btn-logout" title="Logout">Logout</button>
     </div>
+  </nav>
 
-    <!-- Navigation Menu -->
-    <nav id="main-nav" class="nav-menu" style="display:none;">
-      <button onclick="showHomePage()" class="nav-btn">Home</button>
-      <button onclick="showProfilePage()" class="nav-btn">Profile</button>
-      <button onclick="showTestPage()" class="nav-btn">Test</button>
-      <button onclick="showSettingsPage()" class="nav-btn">Settings</button>
-      <button onclick="logout()" class="nav-btn logout-btn">Logout</button>
+  <!-- Side Tools Panel -->
+  <aside id="side-tools">
+    <h3>Tools</h3>
+    <ul>
+      <li><button onclick="alert('Coming soon!')">Calculator</button></li>
+      <li><button onclick="alert('Coming soon!')">Notes</button></li>
+      <li><button onclick="alert('Coming soon!')">Bookmarks</button></li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="main-content">
+    <!-- Navigation menu (for home page only) -->
+    <nav id="main-nav" style="display:none;">
+      <!-- Could add nav links if needed -->
     </nav>
 
-    <!-- Home Page -->
-    <div id="home-page" class="page" style="display:none;">
-      <div class="profile-header">
-        <div id="home-profile-photo" class="profile-photo"></div>
-        <h1>Welcome, <span id="user-display"></span></h1>
-      </div>
-      <h2>Select Subject to Start Test</h2>
-      <div id="subject-list"></div>
-    </div>
+    <!-- Login Page -->
+    <section id="login-page" class="page">
+      <h2>Login</h2>
+      <div id="login-error" class="error-msg"></div>
+      <input type="text" id="login-username" placeholder="Username" />
+      <input type="password" id="login-password" placeholder="Password" />
+      <button onclick="login()">Login</button>
+      <p>
+        No account? <a href="#" onclick="showRegister()">Register here</a><br />
+        Forgot password? <a href="#" onclick="showForgot()">Recover</a>
+      </p>
+    </section>
 
-    <!-- Profile Page -->
-    <div id="profile-page" class="page" style="display:none;">
-      <h1>Your Profile</h1>
-      <div class="profile-header profile-edit">
-        <div id="profile-photo-display" class="profile-photo"></div>
-        <input type="file" id="profile-photo-input" accept="image/*" onchange="previewProfilePhoto()" />
-      </div>
-      <p><strong>Username:</strong> <span id="profile-username"></span></p>
-      <p><strong>Mobile Number:</strong> <input type="text" id="profile-mobile" maxlength="10" /></p>
-      <p><strong>Change Password:</strong></p>
-      <input type="password" id="profile-current-password" placeholder="Current password" />
-      <input type="password" id="profile-new-password" placeholder="New password" />
-      <input type="password" id="profile-new-password-confirm" placeholder="Confirm new password" />
-      <button onclick="updateProfile()">Update Profile</button>
-      <p id="profile-msg" class="error-msg"></p>
-    </div>
+    <!-- Register Page -->
+    <section id="register-page" class="page" style="display:none;">
+      <h2>Register</h2>
+      <div id="register-error" class="error-msg"></div>
+      <input type="text" id="reg-username" placeholder="Username" />
+      <input type="text" id="reg-mobile" placeholder="Mobile Number" />
+      <input type="password" id="reg-password" placeholder="Password" />
+      <input type="password" id="reg-password-confirm" placeholder="Confirm Password" />
+      <button onclick="register()">Register</button>
+      <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+    </section>
+
+    <!-- Forgot Password Page -->
+    <section id="forgot-page" class="page" style="display:none;">
+      <h2>Recover Password</h2>
+      <div id="forgot-error" class="error-msg"></div>
+      <input type="text" id="forgot-username" placeholder="Username" />
+      <input type="text" id="forgot-mobile" placeholder="Mobile Number" />
+      <button onclick="recoverPassword()">Get Password</button>
+      <div id="forgot-result" class="success-msg"></div>
+      <p><a href="#" onclick="showLogin()">Back to Login</a></p>
+    </section>
+
+    <!-- Home Page -->
+    <section id="home-page" class="page" style="display:none;">
+      <h2>Welcome, <span id="user-display"></span></h2>
+      <div id="subject-list" class="subject-list"></div>
+    </section>
 
     <!-- Test Page -->
-    <div id="test-page" class="page" style="display:none;">
-      <h1>MCQ Test - <span id="quiz-subject"></span></h1>
-      <div id="question">Loading question...</div>
-      <div id="options"></div>
-      <button onclick="submitAnswer()" id="submitBtn">Submit</button>
-    </div>
+    <section id="test-page" class="page" style="display:none;">
+      <h2>Subject: <span id="quiz-subject"></span></h2>
+      <div id="question" class="question-text"></div>
+      <form id="options"></form>
+      <button id="submitBtn" onclick="submitAnswer()">Submit Answer</button>
+      <button onclick="goHome()">Quit Test</button>
+    </section>
 
     <!-- Result Page -->
-    <div id="result" class="page" style="display:none;">
+    <section id="result" class="page" style="display:none;">
       <h2>Test Result</h2>
-      <p id="scoreText"></p>
-      <p id="passFailText"></p>
-      <button onclick="goHome()" id="restartBtn">Back to Home</button>
-    </div>
+      <div id="scoreText"></div>
+      <div id="passFailText"></div>
+      <button onclick="goHome()">Back to Home</button>
+    </section>
+
+    <!-- Profile Page -->
+    <section id="profile-page" class="page" style="display:none;">
+      <h2>User Profile</h2>
+      <div id="profile-photo-display" class="profile-photo"></div>
+      <input type="file" id="profile-photo-input" onchange="previewProfilePhoto()" />
+      <p>Username: <span id="profile-username"></span></p>
+      <p>
+        Mobile: <input type="text" id="profile-mobile" />
+      </p>
+      <p>
+        Current Password: <input type="password" id="profile-current-password" />
+      </p>
+      <p>
+        New Password: <input type="password" id="profile-new-password" />
+      </p>
+      <p>
+        Confirm New Password: <input type="password" id="profile-new-password-confirm" />
+      </p>
+      <div id="profile-msg" class="error-msg"></div>
+      <button onclick="updateProfile()">Update Profile</button>
+      <button onclick="showHomePage()">Back to Home</button>
+    </section>
 
     <!-- Settings Page -->
-    <div id="settings-page" class="page" style="display:none;">
-      <h1>Settings</h1>
-      <p>This is a placeholder for settings page.</p>
-    </div>
-  </div>
+    <section id="settings-page" class="page" style="display:none;">
+      <h2>Settings</h2>
+      <p>Coming soon...</p>
+      <button onclick="showHomePage()">Back to Home</button>
+    </section>
+  </main>
 
   <script src="script.js"></script>
 </body>
